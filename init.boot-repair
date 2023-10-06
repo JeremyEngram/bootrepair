@@ -1,0 +1,11 @@
+#!/bin/bash
+
+xdg-open https://fostips.com/install-boot-repair-ubuntu/
+
+sudo add-apt-repository ppa:yannubuntu/boot-repair && sudo apt update
+
+sudo apt --fix-broken install 
+
+sudo apt install boot-repair
+
+sudo boot-repair
