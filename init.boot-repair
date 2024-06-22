@@ -25,3 +25,7 @@ swap_new_partitions() {
 }
 
       swap_new_partitions
+
+
+
+sudo chroot "/mnt/boot-sav/sda3" apt-get install -y grub-efi
