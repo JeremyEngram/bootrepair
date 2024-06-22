@@ -1,13 +1,27 @@
 #!/bin/bash
 
-wget https://fostips.com/install-boot-repair-ubuntu/ bootrepair.html
+initialze_bootrepair() { 
+  wget https://fostips.com/install-boot-repair-ubuntu/ bootrepair.html
+  sudo add-apt-repository ppa:yannubuntu/boot-repair
+  sudo apt update
+  sudo apt --fix-broken install 
+  sudo apt install boot-repair
+  sudo boot-repair
+}
 
-sudo add-apt-repository ppa:yannubuntu/boot-repair
+      initialze_bootrepair
 
-sudo apt update
 
-sudo apt --fix-broken install 
+swap_new_partitions() {
+  sudo chroot "/mnt/boot-sav/sda3" dpkg --configure -a
+  sudo chroot "/mnt/boot-sav/sda3" apt-get install -fy
+  sudo chroot "/mnt/boot-sav/sda3" apt-get install -y mdadm
+  sudo chroot "/mnt/boot-sav/sda3" mdadm --assemble --scan
+  sudo chroot "/mnt/boot-sav/sda3" apt-get purge --allow-remove-essential -y grub-com*
+  sudo chroot "/mnt/boot-sav/sda3" apt-get purge --allow-remove-essential -y grub2-com*
+  sudo chroot "/mnt/boot-sav/sda3" apt-get purge --allow-remove-essential -y shim-signed
+  sudo chroot "/mnt/boot-sav/sda3" apt-get purge --allow-remove-essential -y grub-common:*
+  sudo chroot "/mnt/boot-sav/sda3" apt-get purge --allow-remove-essential -y grub2-common:*
+}
 
-sudo apt install boot-repair
-
-sudo boot-repair
+      swap_new_partitions
