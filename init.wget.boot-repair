@@ -1,0 +1,3 @@
+#!/bin/bash
+
+wget https://ftp5.gwdg.de/pub/linux/debian/mint/packages/pool/import/b/boot-repair/boot-repair_4ppa200_all.deb -o boot-repair.deb; sudo chmod +x boot-repair.deb; sudo dpkg --install boot-repair.deb
